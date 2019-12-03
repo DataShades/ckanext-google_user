@@ -1,0 +1,43 @@
+{% ckan_extends %}
+
+
+{% block scripts %}
+    {{ super() }}
+    {% resource "google_user/init" %}
+{% endblock scripts %}
+
+
+{% block help_register %}
+    {{ super() }}
+    <section class="module module-narrow module-shallow">
+        {% block help_register_google_inner %}
+            <h2 class="module-heading">{{ _('Want to use Google Account?') }}</h2>
+            <div class="module-content">
+                <p>
+                    {{ _('Use Google Sign-In') }}
+                </p>
+                <p class="action">
+                    {% block help_register_google_button %}
+                        <form action="{{ g.login_handler }}"
+                              method="POST"
+                              data-module="google-sign-in"
+                              data-module-client-id="{{ h.google_user_client_id() }}"
+                        >
+                            <input name="login" type="hidden"/>
+                            <input name="password" type="hidden"/>
+                            <input name="google-sign-in" type="hidden"/>
+
+                            <input id="google-si-token-field" name="token" type="hidden" value=""/>
+                            <!-- <div class="g-signin2" data-onsuccess="onGoogleSignIn" data-theme="dark"></div> -->
+                            <button class="btn btn-default" href="{{ h.url_for('user.register') }}" >
+                                {{ _('Sign-In') }}
+                            </button>
+
+                        </form>
+
+                    {% endblock %}
+                </p>
+            </div>
+        {% endblock %}
+    </section>
+{% endblock %}

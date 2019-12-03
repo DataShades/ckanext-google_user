@@ -1,0 +1,11 @@
+{% ckan_extends %}
+
+{% block meta %}
+    {{ super() }}
+    <meta name="google-signin-scope" content="profile email">
+{% endblock meta %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+{% endblock scripts %}
