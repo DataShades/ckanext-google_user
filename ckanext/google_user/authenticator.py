@@ -25,7 +25,12 @@ class GoogleSignInAuthenticator(object):
     def authenticate(self, environ, identity):
         input = environ["wsgi.input"]
 
+        position = input.tell()
         payload = parse_qs(input.read(1024 * 10), True)
+        try:
+            input.seek(position)
+        except AttributeError:
+            return None
         if "google-sign-in" not in payload:
             return None
 
